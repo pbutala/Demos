@@ -2,12 +2,20 @@
 close all;
 clearvars;
 clc;
-rng('Default');
 
-global FIGTITLE demo BPFrm datBits;
+global FIGTITLE demo BPFrm datBits fs ctScrDirDir;
 global SYNC; 
 global FIGWID FIGHGT TXSCR RXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
+
+% set paths
+ctFileCodeSrc = [mfilename('fullpath') '.m'];                           % get fullpath of current file
+[ctScrDir,~,~] = fileparts(ctFileCodeSrc);                              % get scripts dir
+[ctScrDirDir,~,~] = fileparts(ctScrDir);                              % get scripts dir
+cd(ctScrDir);
+fs = filesep;
+fs = ['\' fs];                                                           % set scripts dir as pwd (reference)
+rng('Default');
 
 FIGTITLE = 'Off';
 fSig = 1e6;

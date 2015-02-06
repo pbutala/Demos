@@ -1,5 +1,5 @@
 function demoTxTimer(obj,event)
-global FIGTITLE FIGTX demo BPFrm SYNC datBits;
+global FIGTITLE FIGTX demo BPFrm SYNC datBits fs ctScrDirDir;
 global FIGWID FIGHGT TXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
 persistent TXCLT;
@@ -8,7 +8,8 @@ persistent CHNLWRITE;
 switch(lower(event.Type))
     case{'startfcn'}
         % start tcp server on interface
-        cmd = sprintf('start C:\\ProgramData\\_4DSP_Training\\FMC204\\Debug\\Fmc204APP.exe 1 ML605 %d %d',...
+        ifFile = 'fmc204APP.exe';
+        cmd = sprintf(['start  ' ifFile ' 1 ML605 %d %d'],...
             demo.DAC.dETHID,demo.DAC.dCLKSRC);
         dos(cmd);
         pause(2); % wait till the interface app initializes

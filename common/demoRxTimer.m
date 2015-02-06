@@ -1,5 +1,5 @@
 function demoRxTimer(obj,event)
-global FIGTITLE FIGRX FIGNR FIGNC demo SYNC datBits;
+global FIGTITLE FIGRX FIGNR FIGNC demo SYNC datBits fs ctScrDirDir;
 global FIGWID FIGHGT RXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
 persistent RXCLT BS;
@@ -9,7 +9,10 @@ persistent FIGTXTH;
 switch(lower(event.Type))
     case{'startfcn'}
         % start tcp server on interface
-        cmd = sprintf('start C:\\ProgramData\\_4DSP_Training\\FMC116\\Debug\\Fmc116APP.exe 1 ML605 %d %d',...
+%         cmd = sprintf('start C:\\ProgramData\\_4DSP_Training\\FMC116\\Debug\\Fmc116APP.exe 1 ML605 %d %d',...
+%             demo.ADC.dETHID,demo.ADC.dCLKSRC);
+        ifFile = 'Fmc116APP.exe';
+        cmd = sprintf(['start  ' ifFile ' 1 ML605 %d %d'],...
             demo.ADC.dETHID,demo.ADC.dCLKSRC);
         dos(cmd);
         pause(2);                                                                   % wait till the interface app initializes
