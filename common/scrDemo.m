@@ -18,8 +18,8 @@ fs = ['\' fs];                                                           % set s
 rng('Default');
 
 FIGTITLE = 'Off';
-fSig = 1e6;
-fPlt = 1e6;
+fSig = 10e6;       % NOTE: For fSig~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
+fPlt = 10e6;       % NOTE: For fPlt~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
 SYNC = 1;       % 1: transmit 0: receive
 FIGWID = 560;
 FIGHGT = 420;
@@ -29,19 +29,19 @@ SCRSZ = get(0,'ScreenSize');
 FIGXOFF = 96+FIGWID; FIGXDLT = 24;
 FIGYOFF = 0; FIGYDLT = 96;
 
-% ----OOK----
-fprintf('--OOK--\n');
-spFrm = 8;
-demo = cDemoOOK(fSig, fPlt, spFrm);
-BPFrm = spFrm;
-%------------
-
-% % ----OFDM----
-% fprintf('--OFDM--\n');
-% spFrm = 1;
-% demo = cDemoOFDM(fSig, fPlt, spFrm);
-% BPFrm = spFrm*demo.mod.BPSYM;
+% % ----OOK----
+% fprintf('--OOK--\n');
+% spFrm = 8;
+% demo = cDemoOOK(fSig, fPlt, spFrm);
+% BPFrm = spFrm;
 % %------------
+
+% ----OFDM----
+fprintf('--OFDM--\n');
+spFrm = 1;
+demo = cDemoOFDM(fSig, fPlt, spFrm);
+BPFrm = spFrm*demo.mod.BPSYM;
+%------------
 
 % initialize buffer to hold data bits for BER calculation
 datBits = cFIFO(BPFrm);
@@ -57,7 +57,7 @@ datBits(4) = cFIFO(BPFrm);
 txTmr = timer('Name','StartTxClt',...
               'StartDelay', 2,...
               'Period', 0.25,...
-              'TasksToExecute', 8, ...
+              'TasksToExecute', 4, ...
               'ExecutionMode', 'fixedRate',...
               'StartFcn', @demoTxTimer,...
               'StopFcn', @demoTxTimer,...
