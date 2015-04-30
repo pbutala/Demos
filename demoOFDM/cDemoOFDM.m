@@ -52,6 +52,6 @@ classdef cDemoOFDM < cDemoConfig
                 obj.fSig, obj.DAC.dCLKs);
             obj.mod.FILTER = 'IDEALRECT';
             obj.demod = cDemodOFDM(obj.ofdmTyp, obj.nsc, obj.syms, obj.ofst, obj.ADC.dCLKs, obj.fSig);
-        end % cDemoOOK
+        end % cDemoOFDM
     end % methods - public
 end

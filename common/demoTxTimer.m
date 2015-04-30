@@ -28,6 +28,7 @@ switch(lower(event.Type))
         
         % Create figures to plot transmitted signal and processing chain
         for i=1:4
+%         for i=1
             L = FIGXOFF + TXSCR*SCRSZ(3) + rem(i-1,2)*(FIGWID+FIGXDLT);
             B = FIGYOFF + SCRSZ(4) - (floor((i-1)/2)+1)*(FIGHGT+FIGYDLT);
             FIGTX(i) = figure('Name', sprintf('Frame - Transmit %d (%d Msps)', i, demo.DAC.dCLKs/1e6), 'NumberTitle', FIGTITLE,...

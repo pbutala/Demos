@@ -40,7 +40,7 @@ switch(lower(event.Type))
         
         % subplot dimensions
         FIGNR = 2;
-        FIGNC = 2;
+        FIGNC = 1;
         
         % Create figures to plot received signal and processing chain
         for i=1:4
@@ -143,7 +143,7 @@ switch(lower(event.Type))
                 
                 % Plot receive signal (@fSig*2 clock)
                 figure(FIGRX(CHNLREADIDX));
-                subplot(FIGNR,FIGNC,3);
+                subplot(FIGNR,FIGNC,2);
                 plot(1:demo.SPFRM*demo.demod.NPSYM, rxSig);
                 axis([1 demo.SPFRM*demo.demod.NPSYM min(rxSig) max(rxSig)]);
                 xlabel('Normalized time');
@@ -161,6 +161,9 @@ switch(lower(event.Type))
                 % Find bit errors
                 berr = biterr2(rxBits,datBits(CHNLREADIDX).deQ(datBits(CHNLREADIDX).COUNT));
                 BERs(CHNLREADIDX) = (BERs(CHNLREADIDX)*(CHNLRDCNT(CHNLREADIDX)-1) + berr)/CHNLRDCNT(CHNLREADIDX);
+%                 if (CHNLREAD == demo.ADC.CHNL_1)||(CHNLREAD == demo.ADC.CHNL_4)
+%                     fprintf('BERs(%d) = %3d\n',CHNLREADIDX,berr);
+%                 end
                 fprintf('BERs(%d) = %3d\n',CHNLREADIDX,berr);
                 
                 % Show bit error rate on figure
