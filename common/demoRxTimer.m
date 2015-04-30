@@ -2,6 +2,7 @@ function demoRxTimer(obj,event)
 global FIGTITLE FIGRX FIGNR FIGNC demo SYNC datBits fs ctScrDirDir;
 global FIGWID FIGHGT RXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
+global TXRRSCLF;
 persistent RXCLT BS;
 persistent CHNLREAD BERs CHNLRDCNT;
 persistent FIGTXTH;
@@ -126,7 +127,7 @@ switch(lower(event.Type))
                 
                 % Estimate channel gain from pilot
                 hhat = demo.plt.getScale(rxPltUS, demo.ADC.dCLKs);
-                scl = 1/(hhat*demo.mod.SCALE*demo.DAC.dGAIN);
+                scl = 1/(hhat*demo.mod.SCALE*demo.DAC.dGAIN*TXRRSCLF);
                 
                 % Find signal in frame
                 if pltIs(end) < pltIs(1) % if index roll over

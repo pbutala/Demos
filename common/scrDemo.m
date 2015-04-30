@@ -7,6 +7,7 @@ global FIGTITLE demo BPFrm datBits fs ctScrDirDir;
 global SYNC; 
 global FIGWID FIGHGT TXSCR RXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
+global TXRRSCLF;
 
 % set paths
 ctFileCodeSrc = [mfilename('fullpath') '.m'];                           % get fullpath of current file
@@ -18,8 +19,6 @@ fs = ['\' fs];                                                           % set s
 rng('Default');
 
 FIGTITLE = 'Off';
-fSig = 10e6;       % NOTE: For fSig~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
-fPlt = 10e6;       % NOTE: For fPlt~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
 SYNC = 1;       % 1: transmit 0: receive
 FIGWID = 560;
 FIGHGT = 420;
@@ -29,8 +28,13 @@ SCRSZ = get(0,'ScreenSize');
 FIGXOFF = 96+FIGWID; FIGXDLT = 24;
 FIGYOFF = 0; FIGYDLT = 96;
 
+% Other signal Config
+TXRRSCLF = 1;
+
 % % ----OOK----
 % fprintf('--OOK--\n');
+% fSig = 1e6;       % NOTE: For fSig~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
+% fPlt = 1e6;       % NOTE: For fPlt~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
 % spFrm = 8;
 % demo = cDemoOOK(fSig, fPlt, spFrm);
 % BPFrm = spFrm;
@@ -38,6 +42,8 @@ FIGYOFF = 0; FIGYDLT = 96;
 
 % ----OFDM----
 fprintf('--OFDM--\n');
+fSig = 5e6;       % NOTE: For fSig~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
+fPlt = 5e6;       % NOTE: For fPlt~=1MHz, upsampling signal to DAC sampling rates increases required buffer size on FPGA beyond allocation - thus causing transmit signal chaain to fail.
 spFrm = 1;
 demo = cDemoOFDM(fSig, fPlt, spFrm);
 BPFrm = spFrm*demo.mod.BPSYM;

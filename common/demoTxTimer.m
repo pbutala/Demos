@@ -2,6 +2,7 @@ function demoTxTimer(obj,event)
 global FIGTITLE FIGTX demo BPFrm SYNC datBits fs ctScrDirDir;
 global FIGWID FIGHGT TXSCR SCRSZ;
 global FIGXOFF FIGYOFF FIGXDLT FIGYDLT;
+global TXRRSCLF;
 persistent TXCLT;
 persistent CHNLWRITE;
 
@@ -68,6 +69,7 @@ switch(lower(event.Type))
             
             % Generate transmit frame
             txFrm = [demo.DAC.setRail2Rail(demo.plt.PILOT); txSig];
+            txFrm = txFrm * TXRRSCLF;
             
             % Plot transmit frame
             figure(FIGTX(CHNLWRITEIDX));
